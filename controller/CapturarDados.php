@@ -1,4 +1,7 @@
 <?php
+
+    require_once('../model/Dados.php');
+
     class CapturarDados{
         private $cpf;
 
@@ -14,19 +17,25 @@
             $cpf = preg_replace('/[^0-9]/', '', $this->cpf);
 
             if(strlen($cpf) != 11){
-            echo "CPF inválido, tente novamente";
-            return false;
+                echo "cpf invalido";
+                return false;
             }
-            echo "CPF cadastrado";
-            return true;
+                echo "cpf cadastrado";
+                return true;
         }
     }
 
-    if($_SERVER['REQUEST_METHOD'] === "POST"){
+    if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST["cpf"])){
+        
         $cpf = $_POST["cpf"];
 
-        $Dados = new CapturarDados();
-        $Dados->setCpf($cpf);
-        $Dados->Validar();
+        $Validar = new CapturarDados();
+        $Validar->setCpf($cpf);
+        $Validar->Validar();
+        
+        if($Validar->Validar()){
+            $Dados = new Dados($cpf , $conn);
+            $Dados->ConectarBanco();
+        }
     }
 ?>

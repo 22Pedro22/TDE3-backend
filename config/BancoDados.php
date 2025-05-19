@@ -7,7 +7,7 @@
         private $password = "88548582";
         
         public function Conectar(){
-            $conn = pg_connect("host={$host} port={$port} dbname={$dbname} user={$user} password={$password}");
+            $conn = pg_connect("host={$this->host} port={$this->port} dbname={$this->dbname} user={$this->user} password={$this->password}");
 
             if(!$conn){
                 echo "falha na conexao com o banco de dados" . preg_last_error();
