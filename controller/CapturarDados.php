@@ -13,7 +13,7 @@
             $this->cpf = $cpf;
         }
 
-        public function Validar(){
+        public function validar(){
             $cpf = preg_replace('/[^0-9]/', '', $this->cpf);
 
             if(strlen($cpf) != 11){
@@ -31,11 +31,11 @@
 
         $Validar = new CapturarDados();
         $Validar->setCpf($cpf);
-        $Validar->Validar();
+        $Validar->validar();
         
-        if($Validar->Validar()){
+        if($Validar->validar()){
             $Dados = new Dados($cpf , $conn);
-            $Dados->ConectarBanco();
-        }
+            $Dados->conectarbanco();
+        } 
     }
 ?>

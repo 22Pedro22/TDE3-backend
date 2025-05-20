@@ -7,16 +7,14 @@ class BancoDados {
     private $password = "88548582";
     private $conexao;
         
-    public function conectar() : bool {
-        $conexao = pg_connect("host={$this->host} port={$this->port} dbname={$this->dbname} user={$this->user} password={$this->password}");
+    public function conectar(){
+        $this->conexao = pg_connect("host={$this->host} port={$this->port} dbname={$this->dbname} user={$this->user} password={$this->password}");
 
-        if(!$conexao){
+        if(!$this->conexao){
             echo "Falha na conexao com o banco de dados" . preg_last_error();
-            return false;
         }
 
-        $this->conexao = $conexao;
-        return true;
+        return $this->conexao;
     }
 }
 ?>

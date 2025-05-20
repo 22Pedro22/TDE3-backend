@@ -1,6 +1,6 @@
 <?php
 
-    require_once('../config/BancoDados.php');
+    require_once('../model/BancoDados.php');
 
     class Dados{
         private $cpf;
@@ -23,9 +23,9 @@
             $this->conn = $conn;
         }
 
-        public function ConectarBanco(){
+        public function conectarbanco(){
             $db = new BancoDados();
-            $this->conn = $db->Conectar();
+            $this->conn = $db->conectar();
             $sql = "insert into usuario (cpf) values ($1)";
             $prepare = pg_prepare($this->conn , 'insert_into' , $sql);
             $execute = pg_execute($this->conn , 'insert_into' , array($this->cpf));
