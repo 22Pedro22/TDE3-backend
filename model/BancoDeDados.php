@@ -32,7 +32,7 @@ class BancoDeDados {
     }
 
     //Função para inserir dados em alguma tabela do banco de dados, onde $dados deve ser um array chave/valor
-    public function inserirNaTabela(string $tabela, array $dados) : bool {
+    public function inserir(string $tabela, array $dados) : bool {
         $colunas = array_keys($dados);
         $valores = array_values($dados);
         $placeholders = [];
@@ -51,6 +51,22 @@ class BancoDeDados {
             pg_free_result($resultado);
             return true;
         }
+    }
+
+    public function consultarTodosOsDados(string $tabela) : bool {
+        $query = "SELECT * FROM {$tabela}";
+        $resultado = pg_query($this->conexao, $query);
+
+        if($resultado) {
+            pg_free_result($resultado);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function atualizar(string $tabela, array $dados) {
+
     }
 
     //Retorna a conexão com o banco de dados
