@@ -16,7 +16,46 @@
                 <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
                     <label>Nome:</label>
                     <input type="text" name="cpf" placeholder="Digite o seu nome">
-                    <input type="submit" value="Enviar">
+                </form>
+            </fieldset>
+        </section>
+        <section>
+            <fieldset>
+                <legend>Esolher filme</legend>
+                <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
+                    <select name="filmes">
+                        <option value="filme"></option>
+                        <option value="filme"></option>
+                        <option value="filme"></option>
+                    </select>
+                </form>
+            </fieldset>
+        </section>
+        <section>
+            <fieldset>
+                <legend>Esolher Sessao</legend>
+                <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
+                    <select name="sessoes">
+                        <option value="filme"></option>
+                        <option value="filme"></option>
+                        <option value="filme"></option>
+                        <option value="filme"></option>
+                        <option value="filme"></option>
+                    </select>
+                </form>
+            </fieldset>
+        </section>
+        <section>
+            <fieldset>
+                <legend>Esolher Cadeira</legend>
+                <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
+                    <select name="cadeiras">
+                        <option value="cadeira">Cadeira 1</option>
+                        <option value="cadeira">Cadeira 2</option>
+                        <option value="cadeira">Cadeira 3</option>
+                        <option value="cadeira">Cadeira 4</option>
+                        <option value="cadeira">Cadeira 5</option>
+                    </select>
                 </form>
             </fieldset>
         </section>
