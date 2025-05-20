@@ -8,23 +8,33 @@
 <body>
     <main>
         <section>
+            <h1>Registrar novos filmes</h1>
             <fieldset>
                 <legend>Registrar filme</legend>
                 <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
                     <label>Título do filme:</label>
                     <input type="text" name="titulo" placeholder="Digite o título do filme">
                     <br>
-                    <label>Descricao do filme:</label>
-                    <input type="text" name="descricao" placeholder="Descrição do filme(opcional)">
-                    <input type="submit" value="Enviar">
+                    <input type="submit" value="Registrar">
                 </form>
             </fieldset>
         </section>
         <section>
+            <h1>Registrar novas sessões</h1>
             <fieldset>
                 <legend>Registrar sessão</legend>
                 <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
-                    <label></label>
+                    <label>Data:</label>
+                    <input type="date" name="data">
+                    <br>
+                    <label>Hora:</label>
+                    <input type="time" name="hora">
+                    <br>
+                    <label>Filme:</label>
+                    <select name="filme">
+                    </select>
+                    <br>
+                    <input type="submit" value="Registrar">
                 </form>
             </fieldset>
         </section>
