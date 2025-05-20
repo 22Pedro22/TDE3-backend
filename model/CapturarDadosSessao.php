@@ -21,13 +21,9 @@ class CapturarDadosSessao {
             return false;
         }
 
+        
+        
         return true;
     }
-}
-$c = new CapturarDadosSessao();
-if($c->capturarDados()) {
-    echo "TRUE";
-} else {
-    echo "FALSE";
 }
 ?>

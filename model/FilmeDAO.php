@@ -24,6 +24,10 @@ class FilmeDAO {
         } else {
             return true;
         }
-    }    
+    }
+    
+    public function consultarPorId($titulo) {
+        
+    }
 }
 ?>
