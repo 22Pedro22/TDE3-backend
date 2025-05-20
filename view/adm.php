@@ -1,3 +1,8 @@
+<?php
+
+require_once "../model/CapturarDadosSessao.php";
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,11 +16,11 @@
             <h1>Registrar novos filmes</h1>
             <fieldset>
                 <legend>Registrar filme</legend>
-                <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                     <label>Título do filme:</label>
                     <input type="text" name="titulo" placeholder="Digite o título do filme">
                     <br>
-                    <input type="submit" value="Registrar">
+                    <input type="submit" name="registrarFilme" value="Registrar">
                 </form>
             </fieldset>
         </section>
@@ -23,7 +28,7 @@
             <h1>Registrar novas sessões</h1>
             <fieldset>
                 <legend>Registrar sessão</legend>
-                <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                     <label>Data:</label>
                     <input type="date" name="data">
                     <br>
@@ -34,7 +39,7 @@
                     <select name="filme">
                     </select>
                     <br>
-                    <input type="submit" value="Registrar">
+                    <input type="submit" name= "registrarSessao" value="Registrar">
                 </form>
             </fieldset>
         </section>

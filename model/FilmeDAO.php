@@ -26,11 +26,4 @@ class FilmeDAO {
         }
     }    
 }
-$banco = new BancoDeDados();
-$filmeDAO = new FilmeDAO($banco);
-if($filmeDAO->registrar("Homem-Aranha")) {
-    echo "TRUE";
-} else {
-    echo "FALSE";
-}
 ?>
