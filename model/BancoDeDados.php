@@ -1,6 +1,7 @@
 <?php
 class BancoDeDados {
     
+    //Os atributos dessa classe servem para realizar a conexão com o banco de dados da forma correta.
     private $host = "127.0.0.1";
     private $port = "5432";
     private $dbname = "tde3";
@@ -8,6 +9,7 @@ class BancoDeDados {
     private $password = "88548582";
     private $conexao;
     
+    //Função para realizar a conexão com o banco de dados
     public function conectar() : bool {
         $conexao = pg_connect("host={$this->host} port={$this->port} dbname={$this->dbname} user={$this->user} password={$this->password}");
 
@@ -20,6 +22,7 @@ class BancoDeDados {
         return true;
     }
 
+    //Função para desconectar com o banco de dados
     public function desconectar() : bool {
         if(pg_close($this->conexao)) {
             return true;
@@ -28,10 +31,29 @@ class BancoDeDados {
         }
     }
 
-    public function registrarNaTabela(string $tabela, array $dados) : bool {
+    //Função para inserir dados em alguma tabela do banco de dados, onde $dados deve ser um array chave/valor
+    public function inserirNaTabela(string $tabela, array $dados) : bool {
+        $colunas = array_keys($dados);
+        $valores = array_values($dados);
+        $placeholders = [];
 
+        for($i = 1; $i <= count($colunas); $i++) {
+            $placeholders[] = '$' . $i;
+        }        
+
+        $query = "INSERT INTO {$tabela} (" . implode(',', $colunas) . ") VALUES (" . implode(', ', $placeholders) . ")";
+        $resultado = pg_query_params($this->conexao, $query, $valores);
+
+        if($resultado === false) {
+            error_log("Erro ao inserir no banco de dados! " . pg_last_error($this->conexao));
+            return false;
+        } else {
+            pg_free_result($resultado);
+            return true;
+        }
     }
 
+    //Retorna a conexão com o banco de dados
     public function getConexao() {
         return $this->conexao;
     }
