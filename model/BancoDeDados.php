@@ -13,11 +13,14 @@ class BancoDeDados {
     public function conectar() : bool {
         $conexao = pg_connect("host={$this->host} port={$this->port} dbname={$this->dbname} user={$this->user} password={$this->password}");
 
+
+        // Condicional para verificar se a conexao foi bem sucedida
         if(!$conexao){
             echo "Falha na conexao com o banco de dados" . preg_last_error();
             return false;
         }
 
+        // Retorna a conexao caso seja bem sucedida
         $this->conexao = $conexao;
         return true;
     }
@@ -41,9 +44,11 @@ class BancoDeDados {
             $placeholders[] = '$' . $i;
         }        
 
+        // Insere os dados na tabela
         $query = "INSERT INTO {$tabela} (" . implode(',', $colunas) . ") VALUES (" . implode(', ', $placeholders) . ")";
         $resultado = pg_query_params($this->conexao, $query, $valores);
 
+        // Condicional para inserir os dados na tabela
         if($resultado === false) {
             error_log("Erro ao inserir no banco de dados! " . pg_last_error($this->conexao));
             return false;
