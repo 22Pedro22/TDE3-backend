@@ -1,6 +1,7 @@
 <?php
 
 require_once "../model/CapturarDadosSessao.php";
+require_once "../controller/CapturarFilme.php";
 
 ?>
 <!DOCTYPE html>
