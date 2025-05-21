@@ -21,7 +21,7 @@
         </section>
         <section>
             <fieldset>
-                <legend>Esolher filme</legend>
+                <legend>Escolher filme</legend>
                 <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
                     <select name="filmes">
                         <option value="filme"></option>
