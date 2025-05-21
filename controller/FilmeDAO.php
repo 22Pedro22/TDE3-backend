@@ -28,9 +28,15 @@ class FilmeDAO {
     }    
 }
 
+$Titulo = new CapturarFilme();
+$titulo = $Titulo->getTitulo();
+
 $banco = new BancoDeDados();
+
 $filmeDAO = new FilmeDAO($banco);
-if($filmeDAO->registrar("Homem-Aranha")) {
+$filmeDAO->registrar($titulo);
+
+if($filmeDAO->registrar($Titulo->getTitulo())) {
     echo "TRUE";
 } else {
     echo "FALSE";

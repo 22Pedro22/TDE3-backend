@@ -2,7 +2,7 @@
 
     require_once('FilmeDAO.php');
 
-    class CapturarDadosAdm{
+    class CapturarFilme{
         private $titulo;
 
         public function getTitulo(){
