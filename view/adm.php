@@ -1,7 +1,13 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-require_once "../model/CapturarDadosSessao.php";
-require_once "../model/CapturarDadosFilme.php";
+require_once __DIR__ . "../../model/CapturarDadosSessao.php";
+require_once __DIR__ . "../../model/CapturarDadosFilme.php";
+require_once __DIR__ . "../../model/FilmesRegistrados.php";
+require_once __DIR__ . "../../model/RegistrarFlme.php";
+require_once __DIR__ . "../../model/AtualizarFilme.php";
+require_once __DIR__ . "../../model/ExcluirFilme.php";
 
 ?>
 <!DOCTYPE html>
@@ -43,6 +49,30 @@ require_once "../model/CapturarDadosFilme.php";
                     <input type="submit" name= "registrarSessao" value="Registrar">
                 </form>
             </fieldset>
+        </section>
+        <section>
+            <h3>Lista de filmes:</h3>
+            <fieldset>
+                <legend>Filme registrados:</legend>
+                <table>
+                    <?php foreach($titulos as $titulo) : ?>
+                        <tr>
+                            <td><?php echo $titulo; ?></td>
+                            <td>
+                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                    <input type="hidden" name="tituloAntigo" value="<?php echo $titulo; ?>">
+                                    <input type="text" name="tituloNovo" value="" placeholder="Digite o novo título">
+                                    <button type="submit" name="alterarFilme">Alterar</button>
+                                    <button type="submit" name="excluirFilme">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>    
+                </table>
+            </fieldset>
+        </section>
+        <section>
+            <h3>Lista de sessões:</h3>
         </section>
     </main>
 </body>

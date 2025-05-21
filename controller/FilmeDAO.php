@@ -1,7 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-require_once('../model/BancoDeDados.php');
-require_once("CapturarFilme.php");
+require_once __DIR__ . "../../model/BancoDeDados.php";
 
 class FilmeDAO {
 
@@ -23,22 +24,69 @@ class FilmeDAO {
         if(!$this->banco->inserir("filme", $dados)) {
             return false;
         } else {
+            $this->banco->desconectar();
             return true;
         }
-    }    
-}
+    }
+    
+    public function verificarFilmeExiste($titulo) : bool {
+        $this->banco->conectar();
 
-$Titulo = new CapturarFilme();
-$titulo = $Titulo->getTitulo();
+        $dados = [
+            "titulo" => $titulo
+        ];
+        $filme = $this->banco->retornarId('filme', $dados);
 
-$banco = new BancoDeDados();
+        if(empty($filme)) {
+            return false;
+        }
+        
+        $this->banco->desconectar();
+        return true;
+    }
 
-$filmeDAO = new FilmeDAO($banco);
-$filmeDAO->registrar($titulo);
+    public function retornarFilmes() : array {
+        $this->banco->conectar();
+        
+        $dados = $this->banco->consultarTodosOsDados('filme');
 
-if($filmeDAO->registrar($Titulo->getTitulo())) {
-    echo "TRUE";
-} else {
-    echo "FALSE";
+        $titulos = array_column($dados, 'titulo');
+
+        return $titulos;
+    }
+
+    public function atualizarTitulo(string $tituloAntigo, string $novoTitulo) : bool {
+        if(!$this->banco->conectar()) {
+            return false;
+        }
+
+        $dados = [
+            "titulo" => $novoTitulo
+        ];
+
+        $condicoes = [
+            "titulo" => $tituloAntigo
+        ];
+
+        if(!$this->banco->atualizar('filme', $dados, $condicoes)) {
+            return false;
+        }
+        
+        $this->banco->desconectar();
+        return true;
+    }
+
+    public function excluirFilme($condicoes) {
+        if(!$this->banco->conectar()) {
+            return false;
+        }
+        if(!$this->banco->excluir("filme", $condicoes)) {
+            $this->banco->desconectar();
+            return false;
+        }
+
+        $this->banco->desconectar();
+        return true;
+    }
 }
 ?>

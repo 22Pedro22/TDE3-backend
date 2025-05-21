@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 class BancoDeDados {
     
     //Os atributos dessa classe servem para realizar a conexão com o banco de dados da forma correta.
@@ -103,8 +106,64 @@ class BancoDeDados {
         return $id['id'] ?? '';
     }
 
-    public function atualizar(string $tabela, array $dados) {
+    //Função para atualizar os dados de uma tabela
+    public function atualizar(string $tabela, array $dados, array $condicoes) : bool {
+        $atualizacoes = [];
+        $valores = [];
+        $i = 1;
 
+        // Prepara os campos para atualização
+        foreach($dados as $campo => $valor) {
+            $atualizacoes[] = "{$campo} = \${$i}";
+            $valores[] = $valor;
+            $i++;
+        }
+
+        // Prepara as condições WHERE
+        $where = [];
+        foreach($condicoes as $campo => $valor) {
+            $where[] = "{$campo} = \${$i}";
+            $valores[] = $valor;
+            $i++;
+        }
+
+        $query = "UPDATE {$tabela} SET " . implode(', ', $atualizacoes) . " WHERE " . implode(' AND ', $where);
+
+        $resultado = pg_query_params($this->conexao, $query, $valores);
+
+        if($resultado === false) {
+            error_log("Erro ao atualizar registro: " . pg_last_error($this->conexao));
+            return false;
+        }
+
+        pg_free_result($resultado);
+        return true;
+    }
+
+    public function excluir(string $tabela, $condicoes) : bool {
+        $this->conectar();
+
+        $where = [];
+        $valores = [];
+        $i = 1;
+
+        foreach($condicoes as $campo => $valor) {
+            $where[] = "{$campo} = \${$i}";
+            $valores[] = $valor;
+            $i++;
+        }
+
+        $query = "DELETE FROM {$tabela} WHERE " . implode(' AND ', $where);
+
+        $resultado = pg_query_params($this->conexao, $query, $valores);
+
+        if($resultado === false) {
+            error_log("Erro ao excluir dados da tabela {$tabela}: " . pg_last_error($this->conexao));
+            return false;
+        }
+
+        pg_free_result($resultado);
+        return true;
     }
 
     //Retorna a conexão com o banco de dados

@@ -1,15 +1,17 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Chama o arquivo responsável pela conexao como o banco e a inserçao dos dados
-require_once('FilmeDAO.php');
+require_once __DIR__ . "../../controller/FilmeDAO.php";
+require_once __DIR__ . "../../model/BancoDeDados.php";
 
-// Cria a classe reponsável por capturar os dados
+//Essa classe serve pra capturar os dados do formulário "registrar novos filmes"
 class CapturarDadosFilme {
 
     // Cria o atributo do titulo do filme
     private $titulo;
 
-    // Cria o método responsável por capturar o titulo que o usuário mandar
+    //Função que verifica se o usuário clicou no botão submit e verifica se o campo está vazio 
     public function capturar() : bool{
 
         // Condicional que verifica se o usuário mandou um titulo de filme 
@@ -24,12 +26,20 @@ class CapturarDadosFilme {
 
         // Define o atributo do titulo como o titulo que o usuário mandou
         $this->titulo = $_POST["titulo"];
+
+        $dados = [
+            'titulo' => $this->titulo
+        ];
+        
         return true;
     }
-    
-    // Getter para puxar o titulo
+
+    //Retorna o título capturado
     public function getTitulo(){
         return $this->titulo;
     }
 }
+
+
+
 ?>
