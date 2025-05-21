@@ -53,16 +53,49 @@ class BancoDeDados {
         }
     }
 
-    public function consultarTodosOsDados(string $tabela) : bool {
+    //Função para consultar todos os dados de uma $tabela
+    public function consultarTodosOsDados(string $tabela) : array {
         $query = "SELECT * FROM {$tabela}";
         $resultado = pg_query($this->conexao, $query);
 
-        if($resultado) {
-            pg_free_result($resultado);
-            return true;
-        } else {
-            return false;
+        if($resultado === false) {
+            error_log("Erro ao consultar todos os dados: " . pg_last_error($this->conexao));
+            return [];
         }
+
+        $dados = [];
+        while($linha = pg_fetch_assoc($resultado)) {
+            $dados[] = $linha;
+        }
+
+        pg_free_result($resultado);
+        return $dados;
+    }
+
+    //Consulta numa $tabela de acordo com os $dados, e retorna o id encontrado
+    public function retornarId(string $tabela, array $dados) : string {
+        $condicoes = [];
+        $valores = [];
+        $i = 1;
+
+        foreach($dados as $chave => $valor) {
+            $condicoes[] = "{$chave} = \${$i}";
+            $valores[] = $valor;
+            $i++;
+        }
+
+        $query = "SELECT id FROM {$tabela} WHERE (" . implode(' AND ', $condicoes) . ")";
+        $resultado = pg_query_params($this->conexao, $query, $valores);
+
+        if($resultado === false) {
+            error_log("Erro ao consultar ID: " . pg_last_error($this->conexao));
+            return "";
+        }
+
+        $id = pg_fetch_assoc($resultado);
+        pg_free_result($resultado);
+
+        return $id['id'] ?? '';
     }
 
     public function atualizar(string $tabela, array $dados) {
