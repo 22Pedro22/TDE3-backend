@@ -13,6 +13,8 @@ if(isset($_POST['excluirFilme'])) {
         "titulo" => $_POST['tituloAntigo']
     ];
     
-    $dao->excluirFilme($condicoes);
+    if($dao->excluirFilme($condicoes)) {
+        echo $_POST['tituloAntigo'] . " foi excluido com sucesso!";
+    }
 }
 ?>
