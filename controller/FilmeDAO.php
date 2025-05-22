@@ -76,7 +76,7 @@ class FilmeDAO {
         return true;
     }
 
-    public function excluirFilme($condicoes) {
+    public function excluirFilme($condicoes) : bool {
         if(!$this->banco->conectar()) {
             return false;
         }

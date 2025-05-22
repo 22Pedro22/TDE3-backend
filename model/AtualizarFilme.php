@@ -8,6 +8,8 @@ require_once __DIR__ . "../../controller/FilmeDAO.php";
 if(isset($_POST['alterarFilme']) && isset($_POST['tituloNovo']) && !empty($_POST['tituloNovo'])) {
     $banco = new BancoDeDados();
     $dao = new FilmeDAO($banco);
-    $dao->atualizarTitulo($_POST['tituloAntigo'], $_POST['tituloNovo']);
+    if($dao->atualizarTitulo($_POST['tituloAntigo'], $_POST['tituloNovo'])) {
+        echo "\"" .$_POST['tituloAntigo'] . "\" foi alterado para \"" . $_POST['tituloNovo'] . "\" com sucesso!";
+    }
 }
 ?>
