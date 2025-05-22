@@ -32,25 +32,6 @@ require_once __DIR__ . "../../model/ExcluirFilme.php";
             </fieldset>
         </section>
         <section>
-            <h1>Registrar novas sessões</h1>
-            <fieldset>
-                <legend>Registrar sessão</legend>
-                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-                    <label>Data:</label>
-                    <input type="date" name="data">
-                    <br>
-                    <label>Hora:</label>
-                    <input type="time" name="hora">
-                    <br>
-                    <label>Filme:</label>
-                    <select name="filme">
-                    </select>
-                    <br>
-                    <input type="submit" name= "registrarSessao" value="Registrar">
-                </form>
-            </fieldset>
-        </section>
-        <section>
             <h3>Lista de filmes:</h3>
             <fieldset>
                 <legend>Filme registrados:</legend>
