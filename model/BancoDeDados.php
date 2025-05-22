@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 class BancoDeDados {
     
-    //Os atributos dessa classe servem para realizar a conexão com o banco de dados da forma correta.
+    
     private $host = "127.0.0.1";
     private $port = "5432";
     private $dbname = "tde3";
@@ -12,23 +12,22 @@ class BancoDeDados {
     private $password = "88548582";
     private $conexao;
     
-    //Função para realizar a conexão com o banco de dados
+    
     public function conectar() : bool {
         $conexao = pg_connect("host={$this->host} port={$this->port} dbname={$this->dbname} user={$this->user} password={$this->password}");
 
-
-        // Condicional para verificar se a conexao foi bem sucedida
+        
         if(!$conexao){
             echo "Falha na conexao com o banco de dados" . preg_last_error();
             return false;
         }
 
-        // Retorna a conexao caso seja bem sucedida
+        
         $this->conexao = $conexao;
         return true;
     }
 
-    //Função para desconectar com o banco de dados
+    
     public function desconectar() : bool {
         if(pg_close($this->conexao)) {
             return true;
@@ -37,7 +36,7 @@ class BancoDeDados {
         }
     }
 
-    //Função para inserir dados em alguma tabela do banco de dados, onde $dados deve ser um array chave/valor
+
     public function inserir(string $tabela, array $dados) : bool {
         $colunas = array_keys($dados);
         $valores = array_values($dados);
@@ -47,11 +46,11 @@ class BancoDeDados {
             $placeholders[] = '$' . $i;
         }        
 
-        // Insere os dados na tabela
+
         $query = "INSERT INTO {$tabela} (" . implode(',', $colunas) . ") VALUES (" . implode(', ', $placeholders) . ")";
         $resultado = pg_query_params($this->conexao, $query, $valores);
 
-        // Condicional para inserir os dados na tabela
+
         if($resultado === false) {
             error_log("Erro ao inserir no banco de dados! " . pg_last_error($this->conexao));
             return false;
@@ -61,7 +60,7 @@ class BancoDeDados {
         }
     }
 
-    //Função para consultar todos os dados de uma $tabela
+
     public function consultarTodosOsDados(string $tabela) : array {
         $query = "SELECT * FROM {$tabela}";
         $resultado = pg_query($this->conexao, $query);
@@ -80,7 +79,7 @@ class BancoDeDados {
         return $dados;
     }
 
-    //Consulta numa $tabela de acordo com os $dados, e retorna o id encontrado
+
     public function retornarId(string $tabela, array $dados) : string {
         $condicoes = [];
         $valores = [];
@@ -106,20 +105,19 @@ class BancoDeDados {
         return $id['id'] ?? '';
     }
 
-    //Função para atualizar os dados de uma tabela
     public function atualizar(string $tabela, array $dados, array $condicoes) : bool {
         $atualizacoes = [];
         $valores = [];
         $i = 1;
 
-        // Prepara os campos para atualização
+  
         foreach($dados as $campo => $valor) {
             $atualizacoes[] = "{$campo} = \${$i}";
             $valores[] = $valor;
             $i++;
         }
 
-        // Prepara as condições WHERE
+ 
         $where = [];
         foreach($condicoes as $campo => $valor) {
             $where[] = "{$campo} = \${$i}";
@@ -166,7 +164,7 @@ class BancoDeDados {
         return true;
     }
 
-    //Retorna a conexão com o banco de dados
+
     public function getConexao() {
         return $this->conexao;
     }

@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $banco->inserir('sessao', $dados);
             $banco->desconectar();
         }
-        // Redireciona para evitar reenvio do formulário ao recarregar
+
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
     }
