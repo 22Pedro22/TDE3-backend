@@ -51,9 +51,6 @@ require_once __DIR__ . "../../model/ExcluirFilme.php";
                 </table>
             </fieldset>
         </section>
-        <section>
-            <h3>Lista de sessões:</h3>
-        </section>
     </main>
 </body>
 </html>

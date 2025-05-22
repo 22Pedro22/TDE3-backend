@@ -1,0 +1,16 @@
+create database tde3;
+
+create table filme(
+	id serial not null primary key,
+	titulo varchar (100) not null,
+);
+
+create table sessao(
+	id serial not null primary key,
+	filme varchar (100) not null,
+	sessao varchar (50) not null,
+	cadeira varchar (50) not null,
+	nome_usuario varchar (100) not null
+
+);
+	
